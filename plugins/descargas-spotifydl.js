@@ -36,7 +36,7 @@ let response = await axios.get(`https://api.botcahx.eu.org/api/download/spotify?
         txt += ` ∆ *Artista* : ${artist}\n`
         txt += ` ∆ *Duración* : ${duration}\n\n`
         txt += ``
-        txt += `> By: Daniel`
+        txt += `> By: Daniel \n\n`
         txt += `*- 🟢 procesando su audio*`
 await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m)
 await conn.sendFile(m.chat, downloadLink, title + '.mp3', `
@@ -55,7 +55,7 @@ try {
         txt += ` ∆ *Album* : ${album}\n`
         txt += ` ∆ *Fecha∙* ${year}\n\n`
         txt += ``
-        txt += `> By: Daniel`
+        txt += `> By: Daniel \n\n`
         txt += `*- 🟢 Procesando su audio*`
 
 await await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m)
