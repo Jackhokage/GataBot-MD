@@ -11,12 +11,15 @@ let handler = async (m, { conn, args, text, isPrems, isOwner, usedPrefix, comman
     let downloadLink = response.data.spty.download.audio
     let img = await (await fetch(thumbnail)).buffer()
 
-    let txt = `> 🎧 S P O T I F Y  -  M U S I C A 🎧\n\n`
-        txt += `	✩   *Titulo* : ${title}\n`
-        txt += `	✩   *Artista* : ${artist}\n`
-        txt += `	✩   *Album* : ${album}\n`
-        txt += `	✩   *Fecha de lanzamiento ∙* ${year}\n\n`
-        txt += `*- ↻ El audio se esta enviando espera un momento, soy lenta. . .*`
+    let txt = `> ╰••••∆︶︶ ּ͝🎧SPOTIFY🎧⏝ ּ۪͝ ︶∆••••╮
+╭───────────────────╯\n\n`
+        txt += ` > *Titulo* : ${title}\n`
+        txt += ` > *Artista* : ${artist}\n`
+        txt += ` > *Album* : ${album}\n`
+        txt += ` > *Fecha* : ${year}\n\n`
+        txt += `*- 🔊 Se está procesando su audio, espere un momento *`
+        txt += ``
+        txt += `*✓ By: Daniel*`
 await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m)
 await conn.sendFile(m.chat, downloadLink, title + '.mp3', `
     `.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: user.useDocument })
@@ -28,11 +31,11 @@ let response = await axios.get(`https://api.botcahx.eu.org/api/download/spotify?
     let downloadLink = response.data.result.data.url
     let img = await (await fetch(thumbnail)).buffer()
 
-    let txt = `*乂  S P O T I F Y  -  D O W N L O A D*\n\n`
-        txt += `	✩   *Titulo* : ${title}\n`
-        txt += `	✩   *Artista* : ${artist}\n`
-        txt += `	✩   *Duración* : ${duration}\n\n`
-        txt += `*- ↻ El audio se esta enviando espera un momento, soy lenta. . .*`
+    let txt = `*╰•S P O T I F Y  -  D O W N L O A D•╮*\n\n`
+        txt += ` ∆ *Titulo* : ${title}\n`
+        txt += ` ∆ *Artista* : ${artist}\n`
+        txt += ` ∆ *Duración* : ${duration}\n\n`
+        txt += `*- 🟢 procesando su audio*`
 await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m)
 await conn.sendFile(m.chat, downloadLink, title + '.mp3', `
     `.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: user.useDocument })
@@ -44,12 +47,12 @@ try {
     let downloadLink = response.data.spty.download.audio
     let img = await (await fetch(thumbnail)).buffer()
 
-    let txt = `*乂  S P O T I F Y  -  D O W N L O A D*\n\n`
-        txt += `	✩   *Titulo* : ${title}\n`
-        txt += `	✩   *Artista* : ${artist}\n`
-        txt += `	✩   *Album* : ${album}\n`
-        txt += `	✩   *Fecha de lanzamiento ∙* ${year}\n\n`
-        txt += `*- ↻ El audio se esta enviando espera un momento, soy lenta. . .*`
+    let txt = `*╰•S P O T I F Y  -  D O W N L O A D•╮*\n\n`
+        txt += ` ∆ *Titulo* : ${title}\n`
+        txt += ` ∆ *Artista* : ${artist}\n`
+        txt += ` ∆ *Album* : ${album}\n`
+        txt += ` ∆ *Fecha∙* ${year}\n\n`
+        txt += `*- 🟢 Procesando su audio*`
 
 await await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m)
 await conn.sendFile(m.chat, downloadLink, title + '.mp3', `
