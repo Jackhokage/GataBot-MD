@@ -90,7 +90,7 @@ let info = `*╭╮•••••⏜︵︵ ·୨୧· ︵︵⏜•••••
 ┆🕛 *Duracion:* ${res.duracion}\n
 ┆ 📍*Fuente:* *Spotify*\n
 ┆🏷️*Enlace:* ${shortURL}\n
-┆ > By: Daniel
+┆ > *By: Daniel*
 ╰╌ׄ╌ׄׄ╌ׄ╌ׄ╌ׄ╌ׄׄ╌ׄ╌ׄ╌ׄׄ╌ׄׄ╌ׄ╌ׄ╌ׄ─ׄ╌ׄ╌ׄ╌ׄ╌ׄ─ׄ╯*`
 let resImg = await fetch(res.imagen)
 let thumbb = await resImg.buffer()
