@@ -29,19 +29,19 @@ return finalResponse
 }
 let respuesta = await getOpenAIChatCompletion(text)
 if (respuesta == 'error' || respuesta == '' || !respuesta) return XD // causar error undefined para usar otra api
-conn.reply(m.chat, `${respuesta}`, m, )
+conn.reply(m.chat, `${respuesta}`, m.chat )
 } catch {
 try {
 let botIA222 = await openaiii.createCompletion({model: 'text-davinci-003', prompt: text, temperature: 0.3, max_tokens: 4097, stop: ['Ai:', 'Human:'], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0})
 if (botIA222.data.choices[0].text == 'error' || botIA222.data.choices[0].text == '' || !botIA222.data.choices[0].text) return XD // causar error undefined para usar otra api
-conn.reply(m.chat, botIA222.data.choices[0].text, m, )
+conn.reply(m.chat, botIA222.data.choices[0].text, m.chat )
 } catch {
 try {
 let syms1 = `Actuaras como un Bot de WhatsApp el cual fue creado por Alexis, tu seras CuriosityBot-MD`
 let Empireapi1 = await fetch(`https://api.cafirexos.com/api/chatgpt?text=${text}&name=${m.name}&prompt=${syms1}`)
 let empireApijson1 = await Empireapi1.json();
 if (empireApijson1.resultado == 'error' || empireApijson1.resultado == '' || !empireApijson1.resultado) return XD // causar error undefined para lanzar msg de error
-conn.reply(m.chat, `${empireApijson1.resultado}`, m, )
+conn.reply(m.chat, `${empireApijson1.resultado}`, m.chat )
 } catch {
 }}}
 
