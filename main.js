@@ -163,33 +163,19 @@ if (!/^[1-2]$/.test(opcion)) {
 console.log(chalk.bold.redBright(mid.methodCode11(chalk)))
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${authFile}/creds.json`))
 }
-  
+
+const filterStrings = [
+"Q2xvc2luZyBzdGFsZSBvcGVu", // "Closing stable open"
+"Q2xvc2luZyBvcGVuIHNlc3Npb24=", // "Closing open session"
+"RmFpbGVkIHRvIGRlY3J5cHQ=", // "Failed to decrypt"
+"U2Vzc2lvbiBlcnJvcg==", // "Session error"
+"RXJyb3I6IEJhZCBNQUM=", // "Error: Bad MAC" 
+"RGVjcnlwdGVkIG1lc3NhZ2U=" // "Decrypted message" 
+]
+
 console.info = () => {} 
 console.debug = () => {} 
-const originalConsoleWarn = console.warn
-console.warn = function() {
-const message = arguments[0]
-if (typeof message === 'string' && (message.includes(atob("Q2xvc2luZyBzdGFsZSBvcGVu")) || message.includes(atob("Q2xvc2luZyBvcGVuIHNlc3Npb24=")))) {
-arguments[0] = ""
-}
-originalConsoleWarn.apply(console, arguments)
-}
-const originalConsoleError = console.error
-console.error = function() {
-const message = arguments[0]
-if (typeof message === 'string' && (message.includes(atob("RmFpbGVkIHRvIGRlY3J5cHQ=")) || message.includes(atob("U2Vzc2lvbiBlcnJvcg==")))) {
-arguments[0] = ""
-}
-originalConsoleError.apply(console, arguments)
-}
-const originalConsoleLog = console.log
-console.log = function() {
-const message = arguments[0]
-if (typeof message === 'string' && (message.includes(atob("RXJyb3I6IEJhZCBNQUM=")))) {
-console.log = () => {} //arguments[0] = ""
-}
-originalConsoleLog.apply(console, arguments)
-}
+['log', 'warn', 'error'].forEach(methodName => redefineConsoleMethod(methodName, filterStrings))
 
 const connectionOptions = {
 logger: pino({ level: 'silent' }),
@@ -249,8 +235,6 @@ if (global.obtenerQrWeb === 1) (await import('./server.js')).default(global.conn
 
 async function getMessage(key) {
 if (store) {
-//const msg = store.loadMessage(key.remoteJid, key.id)
-//return msg.message
 } return {
 conversation: 'SimpleBot',
 }}
@@ -335,8 +319,8 @@ conn.ev.off('creds.update', conn.credsUpdate);
 }
 
 //Información para Grupos
-conn.welcome = '*╔══════════════*\n*╟❧ @subject*\n*╠══════════════*\n*╟❧ @user*\n*╟❧ 𝙱𝙸𝙴𝙽𝚅𝙴𝙽𝙸𝙳𝙾/𝙰* \n*║*\n*╟❧ 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾:*\n\n@desc\n\n*║*\n*╟❧ 𝙳𝙸𝚂𝙵𝚁𝚄𝚃𝙰 𝚃𝚄 𝙴𝚂𝚃𝙰𝙳𝙸𝙰!!*\n*╚══════════════*';
-conn.bye = '*╔══════════════*\n*╟❧ @user*\n*╟❧ 𝙷𝙰𝚂𝚃𝙰 𝙿𝚁𝙾𝙽𝚃𝙾 👋🏻* \n*╚══════════════*';
+conn.welcome = lenguajeGB['smsWelcome']() 
+conn.bye = lenguajeGB['smsBye']() 
 conn.spromote = lenguajeGB['smsSpromote']() 
 conn.sdemote = lenguajeGB['smsSdemote']() 
 conn.sDesc = lenguajeGB['smsSdesc']() 
@@ -488,6 +472,16 @@ console.log(chalk.bold.red(`${lenguajeGB.smspurgeOldFiles3()} ${file} ${lenguaje
 console.log(chalk.bold.green(`${lenguajeGB.smspurgeOldFiles1()} ${file} ${lenguajeGB.smspurgeOldFiles2()}`))
 } }) }
 }) }) }) }
+
+function redefineConsoleMethod(methodName, filterStrings) {
+const originalConsoleMethod = console[methodName]
+console[methodName] = function() {
+const message = arguments[0]
+if (typeof message === 'string' && filterStrings.some(filterString => message.includes(atob(filterString)))) {
+arguments[0] = ""
+}
+originalConsoleMethod.apply(console, arguments)
+}}
 
 setInterval(async () => {
 if (stopped === 'close' || !conn || !conn.user) return
